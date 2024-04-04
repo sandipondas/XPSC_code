@@ -1,0 +1,35 @@
+class Solution{
+  public:
+    int longestKSubstr(string v, int k) {
+    
+    int count = 0, l = 0, r = 0, ans = 0; 
+    int n = v.size();
+    map<char,int> mp;
+    while (r < n)
+    {
+        while (r < n)
+        {
+            if (mp[v[r]] == 0) count++;
+            mp[v[r]]++;
+            if (count > k) 
+            break;
+            r++;
+        }
+        if (count >= k) ans = max(ans, r - l);
+        if (r == n) 
+        break;
+        while (l < n)
+        {
+            if (mp[v[l]] == 1) count--;
+            mp[v[l]]--;
+            if (count == k) break;
+            l++;
+        }
+        l++;
+        r++;
+    }
+    if (ans == 0) return -1;
+    else
+    return ans;
+    }
+};
